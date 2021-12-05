@@ -10,6 +10,7 @@ const passD = document.querySelector(".passwordl");
 const outer = document.querySelector(".outer");
 const innerUI = document.querySelector(".innerUI");
 const logoutbtn = document.querySelector(".logout");
+const welcome = document.querySelectorAll(".welcome");
 
 //===========Event Listeners============
 logoutbtn.addEventListener("click", logout);
@@ -101,7 +102,8 @@ function checkAndDisplay(e) {
 function loggedInUser(element) {
   outer.classList.add("hidden");
   innerUI.classList.remove("hidden");
-  console.log(element.userName);
+  // welcome.innerHTML = element.userName;
+  welcome.forEach((x) => (x.innerHTML = element.userName));
 }
 
 //===============logout button==========
