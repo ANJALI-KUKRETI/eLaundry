@@ -177,7 +177,11 @@ button:hover {
   margin: 5px;
 }
 .main {
-  margin: 40px 0px;
+  margin: 20px 0px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .heading {
   text-align: center;
@@ -197,7 +201,7 @@ button:hover {
   display: flex;
   justify-content: space-around;
   padding: 15px;
-  margin-top: 30px;
+  margin-top: 10px;
   border-radius: 5px;
 }
 .part {
@@ -222,6 +226,33 @@ button:hover {
   font-size: 20px;
   font-weight: bold;
   color: white;
+}
+.cart-btn {
+  width: 120px;
+}
+.sticker {
+  display: flex;
+  width: 350px;
+  margin: 10px 0px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(240, 242, 243);
+  padding: 3px;
+  border-radius: 3px;
+}
+.sticker img {
+  height: 35px;
+  margin: 10px;
+}
+.lefty {
+  display: flex;
+}
+.sticker button {
+  background-color: rgb(206, 199, 199);
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: black;
 }
 
 /* =================inner responsove================ */
