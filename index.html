@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Welcome to eLaundry!</title>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner">
+        <div class="left signup">
+          <h1>Welcome to eLaundry!</h1>
+          <form action="#" class="form form_signup">
+            <h2 class="form__title">
+              Sign Up <i class="fas fa-user-plus"></i>
+            </h2>
+            <input
+              type="text"
+              placeholder="User"
+              class="input users"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              class="input emails"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Password"
+              class="input passwords"
+              required
+            />
+            <div class="btn-group">
+              <button type="submit" class="btn btn_signup btn-active">
+                Sign Up
+              </button>
+              <button type="submit" class="btn btn_login">Log In</button>
+            </div>
+          </form>
+          <form action="#" class="form form_login hidden">
+            <h2 class="form__title">
+              Log In<i class="fas fa-sign-in-alt"></i>
+            </h2>
+            <input
+              type="email"
+              placeholder="Email"
+              class="input emaill"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Password"
+              class="input passwordl"
+              required
+            />
+            <div class="btn-group">
+              <button type="submit" class="btn btn_signup">Sign Up</button>
+              <button type="submit" class="btn btn_login btn-active">
+                Log In
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="right">
+          <img src="images/main.svg" alt="" class="mainimg" />
+        </div>
+      </div>
+    </div>
+    <div class="innerUI">
+      <button type="submit" class="logout">Logout</button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
