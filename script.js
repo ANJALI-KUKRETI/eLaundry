@@ -103,28 +103,28 @@ function savetoLocal(e) {
     password: passS.value,
     login: false,
     wash: [
-      { category: "shirtW", quantity: 0, price: 15 },
-      { category: "jeansW", quantity: 0, price: 30 },
-      { category: "tshirtW", quantity: 0, price: 15 },
-      { category: "dressW", quantity: 0, price: 30 },
-      { category: "jacketW", quantity: 0, price: 40 },
-      { category: "sweaterW", quantity: 0, price: 30 },
-      { category: "socksW", quantity: 0, price: 5 },
-      { category: "shoesW", quantity: 0, price: 50 },
-      { category: "blanketW", quantity: 0, price: 50 },
+      { category: "shirtW", quantity: 0, price: 15, total: 0 },
+      { category: "jeansW", quantity: 0, price: 30, total: 0 },
+      { category: "tshirtW", quantity: 0, price: 15, total: 0 },
+      { category: "dressW", quantity: 0, price: 30, total: 0 },
+      { category: "jacketW", quantity: 0, price: 40, total: 0 },
+      { category: "sweaterW", quantity: 0, price: 30, total: 0 },
+      { category: "socksW", quantity: 0, price: 5, total: 0 },
+      { category: "shoesW", quantity: 0, price: 50, total: 0 },
+      { category: "blanketW", quantity: 0, price: 50, total: 0 },
     ],
     iron: [
-      { category: "shirtI", quantity: 0, price: 10 },
-      { category: "jeansI", quantity: 0, price: 10 },
-      { category: "tshirtI", quantity: 0, price: 10 },
-      { category: "dressI", quantity: 0, price: 10 },
-      { category: "jacketI", quantity: 0, price: 10 },
+      { category: "shirtI", quantity: 0, price: 10, total: 0 },
+      { category: "jeansI", quantity: 0, price: 10, total: 0 },
+      { category: "tshirtI", quantity: 0, price: 10, total: 0 },
+      { category: "dressI", quantity: 0, price: 10, total: 0 },
+      { category: "jacketI", quantity: 0, price: 10, total: 0 },
     ],
     dry: [
-      { category: "blanketD", quantity: 0, price: 100 },
-      { category: "sweaterD", quantity: 0, price: 50 },
-      { category: "coatD", quantity: 0, price: 50 },
-      { category: "ethnicD", quantity: 0, price: 50 },
+      { category: "blanketD", quantity: 0, price: 100, total: 0 },
+      { category: "sweaterD", quantity: 0, price: 50, total: 0 },
+      { category: "coatD", quantity: 0, price: 50, total: 0 },
+      { category: "ethnicD", quantity: 0, price: 50, total: 0 },
     ],
   };
   if (!temp.userName || !temp.email || !temp.password) {
@@ -177,7 +177,11 @@ function loggedInUser(element) {
 }
 
 function reLoad(element) {
-  const temp = element.wash;
+  category(element.wash);
+  category(element.iron);
+  category(element.dry);
+}
+function category(temp) {
   for (let i = 0; i < temp.length; i++) {
     // console.log(temp[i].category);
     quan.forEach((ele) => {
@@ -208,37 +212,58 @@ function increase(e) {
   let usersData = JSON.parse(localStorage.getItem("inputvalues")) || [];
 
   let [current] = usersData.filter((user) => user.login == true);
+  let temp;
+  let cat = e.target.parentNode.parentNode.classList[1];
+  let letter = cat.slice(-1);
+  if (letter == "W") temp = current.wash;
+  else if (letter == "I") temp = current.iron;
+  else if (letter == "D") temp = current.dry;
   // console.log(current);
-  let temp = current.wash;
+
   for (let i = 0; i < temp.length; i++) {
     if (e.target.parentNode.parentNode.classList.contains(temp[i].category)) {
       if (e.target.parentNode.childNodes[3].className == "quan") {
         const t = e.target.parentNode.childNodes[3];
+        const price =
+          e.target.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[3].innerHTML.slice(
+            1
+          );
         t.innerHTML++;
         temp[i].quantity = t.innerHTML;
+        temp[i].total = Number(price) * Number(t.innerHTML);
         localStorage.setItem("inputvalues", JSON.stringify(usersData));
       }
     }
   }
-  // }
 }
 
 function decrease(e) {
   e.preventDefault();
   let usersData = JSON.parse(localStorage.getItem("inputvalues")) || [];
-  let [current] = usersData.filter((user) => user.login == true);
+
   // console.log(current);
-  let temp = current.wash;
+  let [current] = usersData.filter((user) => user.login == true);
+  let temp;
+  let cat = e.target.parentNode.parentNode.classList[1];
+  let letter = cat.slice(-1);
+  if (letter == "W") temp = current.wash;
+  else if (letter == "I") temp = current.iron;
+  else if (letter == "D") temp = current.dry;
   for (let i = 0; i < temp.length; i++) {
     if (e.target.parentNode.parentNode.classList.contains(temp[i].category)) {
       if (e.target.parentNode.childNodes[3].className == "quan") {
         const t = e.target.parentNode.childNodes[3];
+        const price =
+          e.target.parentNode.parentNode.childNodes[1].childNodes[3].childNodes[3].innerHTML.slice(
+            1
+          );
         if (t.innerHTML == 0) {
           t.innerHTML = 0;
         } else {
           t.innerHTML--;
           // console.log(temp[i].quantity);
           temp[i].quantity = t.innerHTML;
+          temp[i].total = Number(price) * Number(t.innerHTML);
           localStorage.setItem("inputvalues", JSON.stringify(usersData));
         }
       }
