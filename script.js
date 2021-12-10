@@ -11,7 +11,17 @@ const outer = document.querySelector(".outer");
 const innerUI = document.querySelector(".innerUI");
 const logoutbtn = document.querySelector(".logout");
 const welcome = document.querySelectorAll(".welcome");
-
+const righty = document.querySelectorAll(".righty");
+const minus = document.querySelectorAll(".btn-left");
+const plus = document.querySelectorAll(".btn-right");
+const cartBtn = document.querySelector(".cart-btn");
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
+const closemodal = document.querySelector(".close-modal");
+const done = document.querySelector(".last");
+const checkout = document.querySelector(".checkout");
+const btn_done = document.querySelector(".btn-done");
+const quan = document.querySelectorAll(".quan");
 //===========Event Listeners============
 logoutbtn.addEventListener("click", logout);
 
@@ -55,7 +65,35 @@ signupBtn.forEach(function (element) {
   }
 });
 
-//=====================json=======================
+cartBtn.addEventListener("click", function () {
+  modal.classList.remove("hidden");
+  innerUI.classList.add("hidden");
+});
+closemodal.addEventListener("click", function () {
+  modal.classList.add("hidden");
+  innerUI.classList.remove("hidden");
+});
+btn_done.addEventListener("click", function () {
+  done.classList.add("hidden");
+  modal.classList.add("hidden");
+  innerUI.classList.remove("hidden");
+});
+
+checkout.addEventListener("click", function () {
+  modal.classList.add("hidden");
+  done.classList.remove("hidden");
+});
+
+// washCart.addEventListener("click", function () {
+//   openWash.classList.toggle("hidden");
+// });
+// ironCart.addEventListener("click", function () {
+//   openIron.classList.toggle("hidden");
+// });
+// dryCart.addEventListener("click", function () {
+//   openDry.classList.toggle("hidden");
+// });
+// //=====================json=======================
 let jsonObj = [];
 function savetoLocal(e) {
   e.preventDefault();
@@ -64,6 +102,30 @@ function savetoLocal(e) {
     email: emailS.value,
     password: passS.value,
     login: false,
+    wash: [
+      { category: "shirtW", quantity: 0, price: 15 },
+      { category: "jeansW", quantity: 0, price: 30 },
+      { category: "tshirtW", quantity: 0, price: 15 },
+      { category: "dressW", quantity: 0, price: 30 },
+      { category: "jacketW", quantity: 0, price: 40 },
+      { category: "sweaterW", quantity: 0, price: 30 },
+      { category: "socksW", quantity: 0, price: 5 },
+      { category: "shoesW", quantity: 0, price: 50 },
+      { category: "blanketW", quantity: 0, price: 50 },
+    ],
+    iron: [
+      { category: "shirtI", quantity: 0, price: 10 },
+      { category: "jeansI", quantity: 0, price: 10 },
+      { category: "tshirtI", quantity: 0, price: 10 },
+      { category: "dressI", quantity: 0, price: 10 },
+      { category: "jacketI", quantity: 0, price: 10 },
+    ],
+    dry: [
+      { category: "blanketD", quantity: 0, price: 100 },
+      { category: "sweaterD", quantity: 0, price: 50 },
+      { category: "coatD", quantity: 0, price: 50 },
+      { category: "ethnicD", quantity: 0, price: 50 },
+    ],
   };
   if (!temp.userName || !temp.email || !temp.password) {
     alert("Please enter the data");
@@ -102,8 +164,28 @@ function checkAndDisplay(e) {
 function loggedInUser(element) {
   outer.classList.add("hidden");
   innerUI.classList.remove("hidden");
-  // welcome.innerHTML = element.userName;
+
   welcome.forEach((x) => (x.innerHTML = element.userName));
+  reLoad(element);
+  minus.forEach(function (e) {
+    e.addEventListener("click", decrease);
+  });
+
+  plus.forEach(function (e) {
+    e.addEventListener("click", increase);
+  });
+}
+
+function reLoad(element) {
+  const temp = element.wash;
+  for (let i = 0; i < temp.length; i++) {
+    // console.log(temp[i].category);
+    quan.forEach((ele) => {
+      if (ele.parentNode.parentNode.classList.contains(temp[i].category)) {
+        ele.innerHTML = temp[i].quantity;
+      }
+    });
+  }
 }
 
 //===============logout button==========
@@ -118,4 +200,48 @@ function logout(e) {
     }
   });
   localStorage.setItem("inputvalues", JSON.stringify(usersData));
+}
+
+//plus-minus
+function increase(e) {
+  e.preventDefault();
+  let usersData = JSON.parse(localStorage.getItem("inputvalues")) || [];
+
+  let [current] = usersData.filter((user) => user.login == true);
+  // console.log(current);
+  let temp = current.wash;
+  for (let i = 0; i < temp.length; i++) {
+    if (e.target.parentNode.parentNode.classList.contains(temp[i].category)) {
+      if (e.target.parentNode.childNodes[3].className == "quan") {
+        const t = e.target.parentNode.childNodes[3];
+        t.innerHTML++;
+        temp[i].quantity = t.innerHTML;
+        localStorage.setItem("inputvalues", JSON.stringify(usersData));
+      }
+    }
+  }
+  // }
+}
+
+function decrease(e) {
+  e.preventDefault();
+  let usersData = JSON.parse(localStorage.getItem("inputvalues")) || [];
+  let [current] = usersData.filter((user) => user.login == true);
+  // console.log(current);
+  let temp = current.wash;
+  for (let i = 0; i < temp.length; i++) {
+    if (e.target.parentNode.parentNode.classList.contains(temp[i].category)) {
+      if (e.target.parentNode.childNodes[3].className == "quan") {
+        const t = e.target.parentNode.childNodes[3];
+        if (t.innerHTML == 0) {
+          t.innerHTML = 0;
+        } else {
+          t.innerHTML--;
+          // console.log(temp[i].quantity);
+          temp[i].quantity = t.innerHTML;
+          localStorage.setItem("inputvalues", JSON.stringify(usersData));
+        }
+      }
+    }
+  }
 }
