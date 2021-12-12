@@ -386,13 +386,15 @@ button:hover {
   font-size: 17px;
   background-color: rgb(231, 212, 212);
 }
-
+/* .open-wash {
+  overflow-y: scroll;
+} */
 .lower {
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-.total {
+.num {
   font-size: 35px;
   font-weight: bold;
 }
@@ -418,31 +420,66 @@ button:hover {
 }
 @media screen and (max-width: 1024px) {
   .modal {
-    width: 50%;
+    width: 75%;
     height: 65%;
   }
   .caro {
-    width: 14vw;
+    width: 17vw;
   }
   .open {
-    width: 14vw;
+    width: 17vw;
   }
 }
 @media screen and (max-width: 768px) {
   .modal {
-    width: 70%;
-    height: 70%;
-  }
-  .wrap {
-    flex-direction: column;
-
-    /* align-items: center; */
-    justify-content: space-around;
+    width: 90%;
+    height: 65%;
   }
   .caro {
-    width: 40vw;
+    width: 22vw;
   }
   .open {
-    width: 40vw;
+    width: 22vw;
+  }
+}
+@media screen and (max-width: 500px) {
+  .modal {
+    padding: 5px;
+  }
+  .caro {
+    font-size: 14px;
+    width: 28vw;
+  }
+  .open {
+    width: 28vw;
+  }
+  .fa-arrow-circle-left {
+    font-size: 35px;
+  }
+  .last p {
+    font-size: 13px;
+  }
+}
+
+.stic {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+  background-color: rgb(240, 242, 243);
+  padding: 3px;
+  height: 42px;
+  border-radius: 3px;
+}
+.l {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 500px) {
+  .stic {
+    font-size: 13px;
+    height: 30px;
   }
 }

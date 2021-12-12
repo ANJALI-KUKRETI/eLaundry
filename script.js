@@ -22,6 +22,11 @@ const done = document.querySelector(".last");
 const checkout = document.querySelector(".checkout");
 const btn_done = document.querySelector(".btn-done");
 const quan = document.querySelectorAll(".quan");
+const openWash = document.querySelector(".open-wash");
+const openIron = document.querySelector(".open-iron");
+const openDry = document.querySelector(".open-dry");
+const total = document.querySelector(".num");
+
 //===========Event Listeners============
 logoutbtn.addEventListener("click", logout);
 
@@ -29,7 +34,10 @@ logoutbtn.addEventListener("click", logout);
 document.addEventListener("DOMContentLoaded", function () {
   let usersData = JSON.parse(localStorage.getItem("inputvalues")) || [];
   usersData.forEach(function (ele) {
-    if (ele.login == true) loggedInUser(ele);
+    if (ele.login == true) {
+      loggedInUser(ele);
+      // display(ele);
+    }
   });
 });
 
@@ -68,6 +76,12 @@ signupBtn.forEach(function (element) {
 cartBtn.addEventListener("click", function () {
   modal.classList.remove("hidden");
   innerUI.classList.add("hidden");
+  let usersData = JSON.parse(localStorage.getItem("inputvalues")) || [];
+  usersData.forEach(function (ele) {
+    if (ele.login == true) {
+      display(ele);
+    }
+  });
 });
 closemodal.addEventListener("click", function () {
   modal.classList.add("hidden");
@@ -77,23 +91,20 @@ btn_done.addEventListener("click", function () {
   done.classList.add("hidden");
   modal.classList.add("hidden");
   innerUI.classList.remove("hidden");
+  // let usersData = JSON.parse(localStorage.getItem("inputvalues")) || [];
+  // usersData.forEach(function (ele) {
+  //   if (ele.login == true) {
+  //     clearData(ele);
+  //   }
+  // });
+  clearData();
 });
 
 checkout.addEventListener("click", function () {
   modal.classList.add("hidden");
   done.classList.remove("hidden");
 });
-
-// washCart.addEventListener("click", function () {
-//   openWash.classList.toggle("hidden");
-// });
-// ironCart.addEventListener("click", function () {
-//   openIron.classList.toggle("hidden");
-// });
-// dryCart.addEventListener("click", function () {
-//   openDry.classList.toggle("hidden");
-// });
-// //=====================json=======================
+//==================json=======================
 let jsonObj = [];
 function savetoLocal(e) {
   e.preventDefault();
@@ -269,4 +280,96 @@ function decrease(e) {
       }
     }
   }
+}
+
+function display(ele) {
+  // console.log(ele.wash);
+  const totalW = displayCartW(ele.wash);
+  const totalI = displayCartI(ele.iron);
+  const totalD = displayCartD(ele.dry);
+  total.innerHTML = totalW + totalI + totalD;
+}
+function displayCartW(w) {
+  openWash.innerHTML = "";
+  sum = 0;
+  for (let i = 0; i < w.length; i++) {
+    sum += w[i].total;
+    if (w[i].quantity > 0) {
+      // console.log(w[i]);
+      let newclo = `<div class="stic">
+  <div class="l">
+    <div class="t">
+      <h5 class="cate">${w[i].category.slice(0, -1).toUpperCase()}</h5>
+      <h5 class="q">x ${w[i].quantity}</h5>
+    </div>
+  </div>
+  <h5 class="r subto">₹${w[i].total}</h5>
+</div>`;
+      openWash.insertAdjacentHTML("afterbegin", newclo);
+    }
+  }
+  return sum;
+}
+function displayCartI(w) {
+  openIron.innerHTML = "";
+  sum = 0;
+  for (let i = 0; i < w.length; i++) {
+    sum += w[i].total;
+    if (w[i].quantity > 0) {
+      // console.log(w[i]);
+      let newclo = `<div class="stic">
+  <div class="l">
+    <div class="t">
+      <h5 class="cate">${w[i].category.slice(0, -1).toUpperCase()}</h5>
+      <h5 class="q">x ${w[i].quantity}</h5>
+    </div>
+  </div>
+  <h5 class="r subto">₹${w[i].total}</h5>
+</div>`;
+      openIron.insertAdjacentHTML("afterbegin", newclo);
+    }
+  }
+  return sum;
+}
+function displayCartD(w) {
+  openDry.innerHTML = "";
+  sum = 0;
+  for (let i = 0; i < w.length; i++) {
+    sum += w[i].total;
+    if (w[i].quantity > 0) {
+      // console.log(w[i]);
+      let newclo = `<div class="stic">
+  <div class="l">
+    <div class="t">
+      <h5 class="cate">${w[i].category.slice(0, -1).toUpperCase()}</h5>
+      <h5 class="q">x ${w[i].quantity}</h5>
+    </div>
+  </div>
+  <h5 class="r subto">₹${w[i].total}</h5>
+</div>`;
+      openDry.insertAdjacentHTML("afterbegin", newclo);
+    }
+  }
+  return sum;
+}
+
+function clearData() {
+  let usersData = JSON.parse(localStorage.getItem("inputvalues")) || [];
+  let [current] = usersData.filter((user) => user.login == true);
+
+  current.wash.forEach((e) => {
+    e.quantity = 0;
+    e.total = 0;
+  });
+  current.iron.forEach((e) => {
+    e.quantity = 0;
+    e.total = 0;
+  });
+  current.dry.forEach((e) => {
+    e.quantity = 0;
+    e.total = 0;
+  });
+  localStorage.setItem("inputvalues", JSON.stringify(usersData));
+  // console.log(usersData);
+  loggedInUser(current);
 }
