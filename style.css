@@ -221,6 +221,17 @@ button:hover {
   align-items: center;
   overflow-y: scroll;
 }
+.part::-webkit-scrollbar {
+  width: 8px;
+}
+.part::-webkit-scrollbar-track {
+  width: 8px;
+  background: rgb(202, 204, 206);
+}
+.part::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: rgb(175, 174, 174);
+}
 .category {
   background-color: rgb(175, 29, 139);
   padding: 10px 0px;
