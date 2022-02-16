@@ -6,20 +6,20 @@ This is an **eLaundry** based project, developed only for sharpening the fronten
 
 [Click Here ➡️](https://anjali-kukreti.github.io/eLaundry/)
 
-# About the Project
+# About Project
 
-## Tech Stack Used:
+### Tech Stack Used:
 * HTML
 * CSS
 * Vanilla Js
 
-## Functionalities available
+### Features
 * User can Signup and Login, login credentials will be stored in Localstorage.
 * User can increase/decrease the quantity of clothes to be washed, iron or dry clean.
 * Total amount will be displayed on the cart.
 * User can logout and login again, his/her previous orders(not yet ordered) will be reserved on the Localstorage.
 
-## Sample Images
+### Sample Images
 
  <p align="center"> <strong> Desktop View</strong></p>
  <img src="https://github.com/ANJALI-KUKRETI/eLaundry/blob/main/images/eL8.png">
